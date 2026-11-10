@@ -1,7 +1,0 @@
-# Security analysis upgrade
-
-Strengthen URL-only passive checks without generating attacks or claiming complete penetration testing. Preserve existing rule IDs, stored reports and score semantics. New checks evaluate enforced CSP, HSTS semantics, frame policy, cookie attributes, CORS, password forms and active mixed content. Secret detection distinguishes public identifiers from privileged credential indicators; never validate keys. All findings include method, impact, remediation and verification inside an explicit Security results tab and exported prompts/reports. Unexecuted API authorization and Supabase RLS remain visibly unavailable.
-
-Implementation: failing regression tests; security module and sanitized metadata; integrate document and JavaScript analysis; security center and details; exports; full regression/type/build, independent review and UI QA; package source ZIP preserving data and environment on upgrade.
-
-Completed in 0.6.0: passive module, 14 security rules including explicit unavailable authorization/RLS checks, richer metadata, observed API response headers, center and full details, text/print report and scoped prompt. Queue protocol v6 prevents older workers from claiming security jobs; score v3 preserves reading v1/v2 reports. Fresh verification: 86 tests, typecheck and production build passed; collector browser integration blocked by socket EPERM. See docs/SECURITY_VERIFICATION.md. Existing feature branch is preserved; delivery is the updated source ZIP, no remote merge or deploy.

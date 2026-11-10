@@ -1,6 +1,0 @@
-{
-  "source": "benchmark/PLANTED-ISSUES.md#clean-holdout-cache",
-  "files": {
-    "src/http-entity-tag.ts": "import {createHash} from 'node:crypto';\nexport function responseHeaders(document:string){\n const tag=createHash('sha1').update(document).digest('hex');\n return {'ETag':'\"'+tag+'\"','Cache-Control':'public, max-age=120'};\n}\n"
-  }
-}

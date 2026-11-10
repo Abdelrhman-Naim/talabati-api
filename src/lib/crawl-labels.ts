@@ -1,1 +1,0 @@
-export const crawlStopLabels={exhausted:'انتهى طابور الروابط المكتشفة',page_limit:'وصل إلى حد الصفحات',time_limit:'وصل إلى مهلة الزحف',scope_expired:'انتهى تفويض النطاق',discovery_limit:'وصل إلى حد اكتشاف الروابط أو الخرائط'};

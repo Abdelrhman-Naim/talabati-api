@@ -1,5 +1,0 @@
-import {readFileSync} from 'node:fs';import type {ExpectedFinding} from './score';
-export type Split='dev'|'holdout';export type SourcedExpected=ExpectedFinding&{split:Split};
-export type ExpectedManifest={evaluationSet?:'holdout-negative';schemaVersion:2;annotationStatus:'curated'|'pending';source:{kind:'planted-issues'|'official-documentation';reference:string;note:string};findings:SourcedExpected[]};
-export function readExpected(name:string):ExpectedManifest{if(!/^[a-z-]+$/.test(name))throw new Error('Invalid expected name');const m=JSON.parse(readFileSync(new URL('./expected/'+name+'.json',import.meta.url),'utf8')) as ExpectedManifest;if(m.schemaVersion!==2||!m.source?.reference||!['planted-issues','official-documentation'].includes(m.source.kind)||!Array.isArray(m.findings)||m.findings.some(f=>!['dev','holdout'].includes(f.split)))throw new Error('Expected provenance or split missing');return m;}
-export function selectExpected(manifest:ExpectedManifest,phase:'dev'|'final'){return manifest.findings.filter(f=>phase==='final'||f.split==='dev');}

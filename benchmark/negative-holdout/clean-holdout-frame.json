@@ -1,6 +1,0 @@
-{
-  "source": "benchmark/PLANTED-ISSUES.md#clean-holdout-frame",
-  "files": {
-    "src/release-frame.ts": "const releaseLabel='Release notes';\nconst heading='<h2>'+releaseLabel+'</h2>';\nconst frame=`<section>${heading}<p>Published by the documentation team.</p></section>`;\nexport function attachReleaseFrame(target:Element){target.insertAdjacentHTML('beforeend',frame);}\n"
-  }
-}

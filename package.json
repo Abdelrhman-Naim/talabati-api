@@ -1,43 +1,25 @@
 {
-  "name": "aegis-audit-beta",
-  "version": "0.12.0",
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=24.0.0"
-  },
+  "name": "security-audit-api",
+  "version": "1.0.0",
+  "description": "Pure Headless Security Audit & Vulnerability Testing REST API",
+  "main": "server.js",
   "scripts": {
-    "dev": "node scripts/dev.mjs",
-    "build": "next build --webpack",
-    "start": "next start --hostname 0.0.0.0",
-    "worker": "node --env-file-if-exists=.env.local --import tsx src/worker.ts",
-    "test": "node --import tsx --test tests/*.test.ts packages/findings/*.test.ts",
-    "typecheck": "tsc --noEmit",
-    "test:browser": "node --import tsx --test tests/browser.integration.ts",
-    "browser:install": "playwright install chromium",
-    "setup": "npm ci && npm run browser:install",
-    "start:all": "node scripts/start.mjs",
-    "benchmark": "node --import tsx benchmark/run.ts",
-    "test:benchmark": "node --import tsx --test benchmark/*.test.ts",
-    "benchmark:docker": "node benchmark/scripts/docker.mjs",
-    "test:findings": "node --import tsx --test packages/findings/*.test.ts"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "axe-core": "^4.14.0",
-    "cheerio": "^1.2.0",
-    "ipaddr.js": "^2.3.0",
-    "lucide-react": "^0.577.0",
-    "next": "16.4.5",
-    "playwright": "^1.65.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "zod": "^4.1.0",
-    "typescript": "^5.9.0"
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   },
-  "devDependencies": {
-    "@types/node": "^24.0.0",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
-    "tsx": "^4.20.0"
-  }
+  "keywords": [
+    "security",
+    "audit",
+    "api",
+    "vulnerabilities",
+    "ast",
+    "scanner"
+  ],
+  "author": "Abdelrhman Naim",
+  "license": "ISC"
 }

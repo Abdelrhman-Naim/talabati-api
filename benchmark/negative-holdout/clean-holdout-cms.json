@@ -1,6 +1,0 @@
-{
-  "source": "benchmark/PLANTED-ISSUES.md#clean-holdout-cms",
-  "files": {
-    "src/cms-preview.ts": "import purifier from 'isomorphic-dompurify';\nexport function renderPreview(target:HTMLElement,sourceHtml:string){\n const rendered=purifier.sanitize(sourceHtml);\n target.innerHTML=rendered;\n}\n"
-  }
-}
