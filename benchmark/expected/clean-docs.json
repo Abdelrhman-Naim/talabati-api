@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 2,
+  "annotationStatus": "curated",
+  "source": {
+    "kind": "planted-issues",
+    "reference": "benchmark/PLANTED-ISSUES.md#clean-docs",
+    "note": "Authored fixture ground truth, never derived from scanner output."
+  },
+  "findings": []
+}

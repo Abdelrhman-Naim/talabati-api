@@ -1,0 +1,348 @@
+{
+  "schema": "aegis-benchmark-v1",
+  "scannerVersion": "0.12.0",
+  "sourceBase": "b2fcb2f",
+  "generatedAt": "2026-11-10T09:24:05.436Z",
+  "profile": "local-repository-snapshot-and-optional-isolated-http",
+  "liveOsv": true,
+  "osvMode": "live",
+  "phase": "dev",
+  "partial": true,
+  "results": [
+    {
+      "target": "seeded",
+      "kind": "repo",
+      "status": "partial",
+      "durationMs": 61,
+      "expectedStatus": "curated-local",
+      "expected": [
+        {
+          "id": "stripe-file",
+          "category": "secret",
+          "location": "src/stripe.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "aws-pair",
+          "category": "secret",
+          "location": "src/aws.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "supabase-service-role",
+          "category": "secret",
+          "location": "src/supabase.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "next-public-misuse",
+          "category": "secret",
+          "location": "src/public-config.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "eval-input",
+          "category": "code",
+          "location": "src/eval.ts:1",
+          "severity": "medium",
+          "split": "dev"
+        },
+        {
+          "id": "sql-concat",
+          "category": "code",
+          "location": "src/query.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "html-input",
+          "category": "code",
+          "location": "app/unsafe/page.tsx:1",
+          "severity": "medium",
+          "split": "dev"
+        },
+        {
+          "id": "tls-disabled",
+          "category": "config",
+          "location": "src/tls.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "missing-rls",
+          "category": "config",
+          "location": "supabase/migrations/001_table.sql:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "public-read-policy",
+          "category": "config",
+          "location": "supabase/migrations/002_read.sql:1",
+          "severity": "medium",
+          "split": "dev"
+        },
+        {
+          "id": "no-auth-route",
+          "category": "api",
+          "location": "app/api/private/route.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "jwt-none",
+          "category": "api",
+          "location": "src/jwt.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "cors-reflection",
+          "category": "api",
+          "location": "src/cors.ts:1",
+          "severity": "high",
+          "split": "dev"
+        },
+        {
+          "id": "lodash-known-advisory",
+          "category": "dependency",
+          "location": "package-lock.json:8",
+          "severity": "high",
+          "split": "dev"
+        }
+      ],
+      "actual": [
+        {
+          "id": "f050b2e02abfbbd1c9d0",
+          "category": "code",
+          "location": "app/unsafe/page.tsx:1",
+          "severity": "medium",
+          "rule": "repo.html-sink"
+        },
+        {
+          "id": "a1022fea67bb107db103",
+          "category": "api",
+          "location": "src/cors.ts:1",
+          "severity": "high",
+          "rule": "repo.cors-reflection"
+        },
+        {
+          "id": "f884a339712791e976f2",
+          "category": "code",
+          "location": "src/eval.ts:1",
+          "severity": "medium",
+          "rule": "repo.eval"
+        },
+        {
+          "id": "faf426585315671a4ccd",
+          "category": "api",
+          "location": "src/jwt.ts:1",
+          "severity": "high",
+          "rule": "repo.jwt-none"
+        },
+        {
+          "id": "dbc5ec06c62f3794df70",
+          "category": "secret",
+          "location": "src/public-config.ts:1",
+          "severity": "high",
+          "rule": "repo.public-secret"
+        },
+        {
+          "id": "4ab68157561c503df555",
+          "category": "code",
+          "location": "src/query.ts:1",
+          "severity": "high",
+          "rule": "repo.sql-concat"
+        },
+        {
+          "id": "be56728879b58606612c",
+          "category": "secret",
+          "location": "src/stripe.ts:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "6435d5705e2bdcca6227",
+          "category": "secret",
+          "location": "src/supabase.ts:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "6bb8ffd69937c88818f7",
+          "category": "config",
+          "location": "src/tls.ts:1",
+          "severity": "high",
+          "rule": "repo.tls-bypass"
+        },
+        {
+          "id": "advanced|aeec2d2be85965d6b454",
+          "category": "config",
+          "location": "supabase/migrations/002_read.sql:1",
+          "severity": "medium",
+          "rule": "repo.sql.policy-open-read"
+        }
+      ],
+      "metrics": {
+        "expected": 13,
+        "actual": 10,
+        "truePositives": 10,
+        "falseNegatives": 3,
+        "falsePositives": 0,
+        "recall": 0.7692307692307693,
+        "precision": 1,
+        "highCriticalPrecision": 1,
+        "byCategory": {
+          "secret": {
+            "expected": 4,
+            "actual": 3,
+            "truePositives": 3,
+            "falseNegatives": 1,
+            "falsePositives": 0,
+            "recall": 0.75,
+            "precision": 1,
+            "status": "measured"
+          },
+          "api": {
+            "expected": 3,
+            "actual": 2,
+            "truePositives": 2,
+            "falseNegatives": 1,
+            "falsePositives": 0,
+            "recall": 0.6666666666666666,
+            "precision": 1,
+            "status": "measured"
+          },
+          "code": {
+            "expected": 3,
+            "actual": 3,
+            "truePositives": 3,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 1,
+            "precision": 1,
+            "status": "measured"
+          },
+          "dependency": {
+            "expected": 1,
+            "actual": null,
+            "truePositives": null,
+            "falseNegatives": null,
+            "falsePositives": null,
+            "recall": null,
+            "precision": null,
+            "status": "unmeasured"
+          },
+          "config": {
+            "expected": 3,
+            "actual": 2,
+            "truePositives": 2,
+            "falseNegatives": 1,
+            "falsePositives": 0,
+            "recall": 0.6666666666666666,
+            "precision": 1,
+            "status": "measured"
+          }
+        }
+      },
+      "unmeasuredCategories": [
+        "dependency"
+      ],
+      "toolStatus": {
+        "custom-0.12.0": "ok",
+        "osv": "incomplete",
+        "git-history": "unsupported-current-scanner",
+        "external-api-probes": "not_requested"
+      },
+      "sourceSnapshot": "0759eb5a87d907c705aabed8142e78c0dc50286b",
+      "osvMode": "live",
+      "osvDiagnostics": [
+        {
+          "kind": "dns_error",
+          "code": "EAI_AGAIN",
+          "message": "getaddrinfo EAI_AGAIN api.osv.dev"
+        }
+      ],
+      "reason": "OSV incomplete: [{\"kind\":\"dns_error\",\"code\":\"EAI_AGAIN\",\"message\":\"getaddrinfo EAI_AGAIN api.osv.dev\"}]; dependency quality unmeasured"
+    }
+  ],
+  "aggregate": {
+    "expected": 13,
+    "actual": 10,
+    "recall": 0.7692307692307693,
+    "precision": 1,
+    "falsePositives": 0,
+    "truePositives": 10,
+    "falseNegatives": 3,
+    "highCriticalPrecision": 1,
+    "byCategory": {
+      "secret": {
+        "expected": 4,
+        "actual": 3,
+        "truePositives": 3,
+        "falseNegatives": 1,
+        "falsePositives": 0,
+        "recall": 0.75,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "api": {
+        "expected": 3,
+        "actual": 2,
+        "truePositives": 2,
+        "falseNegatives": 1,
+        "falsePositives": 0,
+        "recall": 0.6666666666666666,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "code": {
+        "expected": 3,
+        "actual": 3,
+        "truePositives": 3,
+        "falseNegatives": 0,
+        "falsePositives": 0,
+        "recall": 1,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "dependency": {
+        "expected": 1,
+        "actual": null,
+        "truePositives": null,
+        "falseNegatives": null,
+        "falsePositives": null,
+        "recall": null,
+        "precision": null,
+        "status": "partial",
+        "unmeasuredExpected": 1
+      },
+      "config": {
+        "expected": 3,
+        "actual": 2,
+        "truePositives": 2,
+        "falseNegatives": 1,
+        "falsePositives": 0,
+        "recall": 0.6666666666666666,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      }
+    },
+    "cleanNegativeSet": []
+  },
+  "limitations": [
+    "No Docker target is reported clean when it did not run.",
+    "Empty Docker expected arrays are pending annotations, not clean negative sets.",
+    "LocalReader hashes a content snapshot; it does not scan git history.",
+    "Quality metrics exclude explicitly unmeasured dependency rows; raw target metrics retain all expected counts.",
+    "Location matching is category plus normalized file:line; it does not establish exploitability."
+  ]
+}

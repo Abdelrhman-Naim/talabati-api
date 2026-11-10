@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 2,
+  "annotationStatus": "pending",
+  "source": {
+    "kind": "official-documentation",
+    "reference": "https://pwning.owasp-juice.shop/companion-guide/latest/appendix/solutions.html",
+    "note": "Official target source; version-specific benchmark annotations pending Docker validation. Empty findings is NOT a clean target."
+  },
+  "findings": []
+}

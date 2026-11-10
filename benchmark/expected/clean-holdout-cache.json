@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 2,
+  "annotationStatus": "curated",
+  "evaluationSet": "holdout-negative",
+  "source": {
+    "kind": "planted-issues",
+    "reference": "benchmark/PLANTED-ISSUES.md#clean-holdout-cache",
+    "note": "Authored benign context from fixture intent; expected findings are empty independently of scanner output. Holdout only; do not tune rules against this target."
+  },
+  "findings": []
+}

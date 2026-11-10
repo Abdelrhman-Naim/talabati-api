@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+const base=process.env.TEST_BASE_URL??'http://localhost:3000';
+let cookie='';
+async function call(path,method='GET',body,override={}){const response=await fetch(base+'/api/'+path,{method,headers:{...(body?{'Content-Type':'application/json','Origin':base}:{}),...(cookie?{Cookie:cookie}:{}),...override},body:body?JSON.stringify(body):undefined});const c=response.headers.get('set-cookie');if(c)cookie=c.split(';')[0];return {status:response.status,data:await response.json()};}
+assert.equal((await call('state')).status,401);
+assert.equal((await call('auth/register','POST',{email:'a@example.com',password:'123456789012'}, {Origin:'https://evil.example'})).status,403);
+const email=`smoke-${Date.now()}@example.com`;assert.equal((await call('auth/register','POST',{email,password:'test-password-123'})).status,200);
+const firstCookie=cookie;
+const project=await call('projects','POST',{name:'Smoke',url:'https://example.com'});assert.equal(project.status,200);
+const id=project.data.project.id;
+assert.equal((await call('projects/'+id+'/scan','POST',{authorized:true})).status,400);
+assert.equal((await call('projects/'+id+'/scan','POST',{authorized:false})).status,400);
+const demo=await call('demo','POST',{});assert.equal(demo.status,200);
+const scanId=demo.data.scan.id;
+const state=await call('state');assert.ok(state.data.scans.some(s=>s.id===scanId&&s.is_demo));
+assert.equal((await call('scans/'+scanId+'/export')).status,200);
+cookie='';assert.equal((await call('auth/register','POST',{email:`other-${Date.now()}@example.com`,password:'test-password-456'})).status,200);
+assert.equal((await call('scans/'+scanId)).status,404);
+assert.equal((await call('projects/'+id,'DELETE',{})).status,404);
+cookie=firstCookie;assert.equal((await call('auth/logout','POST',{})).status,200);assert.equal((await call('state')).status,401);
+console.log('HTTP smoke: 13 assertions passed (auth, CSRF, owner isolation, unverified target, demo, export, logout).');

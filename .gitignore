@@ -1,4 +1,11 @@
 node_modules/
+.next/
 .env
-npm-debug.log*
-.DS_Store
+.env.local
+data/
+*.tsbuildinfo
+.superpowers/
+artifacts/
+benchmark/generated/
+benchmark/runs/
+benchmark/external/

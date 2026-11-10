@@ -1,0 +1,9 @@
+{
+  "benchmark/expected/clean-docs.json": "d75a20ab2ea5266ab936dc4526605700764243b37242ce01e09aa1a0c797f954",
+  "benchmark/expected/clean-marketing.json": "7245ec1db411365db71207c52cb3b1a0698519b99cbe950feb0b34f090e2ec3e",
+  "benchmark/expected/clean-portal.json": "a2eb52bfcc25286c42ed39c454b2a4b67e6555144b2a73bcfee8f14a25013682",
+  "benchmark/expected/dvwa.json": "c0a1527ec0257fdb3324184d75a1fcd3365a70c49b3e44507716685c28dd7c6b",
+  "benchmark/expected/juice-shop.json": "f0589a0b4694f2fc323b689006226e723b6f16712cd4562907815c9d4303b042",
+  "benchmark/expected/nodegoat.json": "a978724bdc28faba375813a8b880edfcc8a012182fdec8809d07d0cf4aaa0a0c",
+  "benchmark/expected/seeded.json": "364f315bd79f1228cf1a347b6c307439222286be5267d04b11fd6355771c3443"
+}

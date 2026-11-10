@@ -1,0 +1,17 @@
+{
+  "base": "a221077",
+  "note": "Implementation hashes recorded before authoring new negative inputs. Independent dev-review fixes, if required, will be recorded before final measurements. No rule tuning from holdout measurements.",
+  "files": {
+    "src/lib/repository/ast.ts": "8c6b62072511e6804438efb448a777a4add7b939abcc4a5887ef4ef003d1df0a",
+    "src/lib/repository/analyzer.ts": "4c545a615fa1483e6e3e87ce8e46106675ad727912394a92a10db25fc0dba34e",
+    "src/lib/repository/rule-context.ts": "844477558ca30b6071997582f4a6c682554525f4915b4a0dae156500743241e9",
+    "packages/findings/redact.ts": "049a1e0cd5235e5b360ad2d641ffed0f6f3b4df246ef90ef8323815e19a92138"
+  },
+  "reviewNote": "Independent dev review fixes completed and tested before final measurement; no new holdout fixtures inspected by reviewer or measured before this final seal.",
+  "finalFiles": {
+    "src/lib/repository/ast.ts": "e49190247a61c7d96088eabce06119a85164b748c64102a50368fbd281a6ccad",
+    "src/lib/repository/analyzer.ts": "4c545a615fa1483e6e3e87ce8e46106675ad727912394a92a10db25fc0dba34e",
+    "src/lib/repository/rule-context.ts": "1f2e3103ddde3d054d31a75ddb44e46f2cafbee119a7e2dc27110ed3b31f652f",
+    "packages/findings/redact.ts": "c2f0b5fb1ef0c01451ce3f0e2967cf31b28737e31f0a62fac58b4a6833e59226"
+  }
+}

@@ -1,0 +1,717 @@
+{
+  "schema": "aegis-benchmark-v1",
+  "scannerVersion": "0.12.0",
+  "sourceBase": "b2fcb2f",
+  "generatedAt": "2026-11-09T15:34:51.697Z",
+  "profile": "local-repository-snapshot-and-optional-isolated-http",
+  "liveOsv": true,
+  "partial": true,
+  "results": [
+    {
+      "target": "seeded",
+      "kind": "repo",
+      "status": "partial",
+      "durationMs": 289,
+      "expectedStatus": "curated-local",
+      "expected": [
+        {
+          "id": "stripe-file",
+          "category": "secret",
+          "location": "src/stripe.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "openai-file",
+          "category": "secret",
+          "location": "src/openai.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "aws-pair",
+          "category": "secret",
+          "location": "src/aws.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "supabase-service-role",
+          "category": "secret",
+          "location": "src/supabase.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "frontend-bundle-secret",
+          "category": "secret",
+          "location": "public/_next/static/chunks/bundle.js:1",
+          "severity": "high"
+        },
+        {
+          "id": "next-public-misuse",
+          "category": "secret",
+          "location": "src/public-config.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "deleted-history-secret",
+          "category": "secret",
+          "location": "src/deleted-secret.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "eval-input",
+          "category": "code",
+          "location": "src/eval.ts:1",
+          "severity": "medium"
+        },
+        {
+          "id": "sql-concat",
+          "category": "code",
+          "location": "src/query.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "shell-input",
+          "category": "code",
+          "location": "src/shell.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "html-input",
+          "category": "code",
+          "location": "app/unsafe/page.tsx:1",
+          "severity": "medium"
+        },
+        {
+          "id": "tls-disabled",
+          "category": "config",
+          "location": "src/tls.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "missing-rls",
+          "category": "config",
+          "location": "supabase/migrations/001_table.sql:1",
+          "severity": "high"
+        },
+        {
+          "id": "public-read-policy",
+          "category": "config",
+          "location": "supabase/migrations/002_read.sql:1",
+          "severity": "medium"
+        },
+        {
+          "id": "public-write-policy",
+          "category": "config",
+          "location": "supabase/migrations/003_write.sql:1",
+          "severity": "high"
+        },
+        {
+          "id": "edge-jwt-disabled",
+          "category": "config",
+          "location": "supabase/config.toml:2",
+          "severity": "high"
+        },
+        {
+          "id": "no-auth-route",
+          "category": "api",
+          "location": "app/api/private/route.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "idor-route",
+          "category": "api",
+          "location": "app/api/records/[id]/route.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "jwt-none",
+          "category": "api",
+          "location": "src/jwt.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "cors-reflection",
+          "category": "api",
+          "location": "src/cors.ts:1",
+          "severity": "high"
+        },
+        {
+          "id": "lodash-known-advisory",
+          "category": "dependency",
+          "location": "package-lock.json:8",
+          "severity": "high"
+        }
+      ],
+      "actual": [
+        {
+          "id": "f050b2e02abfbbd1c9d0",
+          "category": "code",
+          "location": "app/unsafe/page.tsx:1",
+          "severity": "medium",
+          "rule": "repo.html-sink"
+        },
+        {
+          "id": "9a747f32430b79b29171",
+          "category": "secret",
+          "location": "public/_next/static/chunks/bundle.js:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "a1022fea67bb107db103",
+          "category": "api",
+          "location": "src/cors.ts:1",
+          "severity": "high",
+          "rule": "repo.cors-reflection"
+        },
+        {
+          "id": "f884a339712791e976f2",
+          "category": "code",
+          "location": "src/eval.ts:1",
+          "severity": "medium",
+          "rule": "repo.eval"
+        },
+        {
+          "id": "faf426585315671a4ccd",
+          "category": "api",
+          "location": "src/jwt.ts:1",
+          "severity": "high",
+          "rule": "repo.jwt-none"
+        },
+        {
+          "id": "7a2bf25f0e20fc816384",
+          "category": "secret",
+          "location": "src/openai.ts:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "dbc5ec06c62f3794df70",
+          "category": "secret",
+          "location": "src/public-config.ts:1",
+          "severity": "high",
+          "rule": "repo.public-secret"
+        },
+        {
+          "id": "4ab68157561c503df555",
+          "category": "code",
+          "location": "src/query.ts:1",
+          "severity": "high",
+          "rule": "repo.sql-concat"
+        },
+        {
+          "id": "dda4292ebb20f4bbcef9",
+          "category": "code",
+          "location": "src/shell.ts:1",
+          "severity": "high",
+          "rule": "repo.shell"
+        },
+        {
+          "id": "be56728879b58606612c",
+          "category": "secret",
+          "location": "src/stripe.ts:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "6435d5705e2bdcca6227",
+          "category": "secret",
+          "location": "src/supabase.ts:1",
+          "severity": "high",
+          "rule": "repo.secret"
+        },
+        {
+          "id": "6bb8ffd69937c88818f7",
+          "category": "config",
+          "location": "src/tls.ts:1",
+          "severity": "high",
+          "rule": "repo.tls-bypass"
+        },
+        {
+          "id": "advanced|5042805478cea17070a7",
+          "category": "config",
+          "location": "supabase/config.toml:2",
+          "severity": "high",
+          "rule": "repo.supabase-verify-jwt"
+        },
+        {
+          "id": "advanced|aeec2d2be85965d6b454",
+          "category": "config",
+          "location": "supabase/migrations/002_read.sql:1",
+          "severity": "medium",
+          "rule": "repo.sql.policy-open-read"
+        },
+        {
+          "id": "advanced|dafa169ed318e4adbb78",
+          "category": "config",
+          "location": "supabase/migrations/003_write.sql:1",
+          "severity": "high",
+          "rule": "repo.sql.policy-open-write"
+        }
+      ],
+      "metrics": {
+        "expected": 20,
+        "actual": 15,
+        "truePositives": 15,
+        "falseNegatives": 5,
+        "falsePositives": 0,
+        "recall": 0.75,
+        "precision": 1,
+        "highCriticalPrecision": 1,
+        "byCategory": {
+          "secret": {
+            "expected": 7,
+            "actual": 5,
+            "truePositives": 5,
+            "falseNegatives": 2,
+            "falsePositives": 0,
+            "recall": 0.7142857142857143,
+            "precision": 1
+          },
+          "api": {
+            "expected": 4,
+            "actual": 2,
+            "truePositives": 2,
+            "falseNegatives": 2,
+            "falsePositives": 0,
+            "recall": 0.5,
+            "precision": 1
+          },
+          "code": {
+            "expected": 4,
+            "actual": 4,
+            "truePositives": 4,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 1,
+            "precision": 1
+          },
+          "dependency": {
+            "expected": 1,
+            "actual": null,
+            "truePositives": null,
+            "falseNegatives": null,
+            "falsePositives": null,
+            "recall": null,
+            "precision": null
+          },
+          "config": {
+            "expected": 5,
+            "actual": 4,
+            "truePositives": 4,
+            "falseNegatives": 1,
+            "falsePositives": 0,
+            "recall": 0.8,
+            "precision": 1
+          }
+        }
+      },
+      "unmeasuredCategories": [
+        "dependency"
+      ],
+      "toolStatus": {
+        "custom-0.12.0": "ok",
+        "osv": "incomplete",
+        "git-history": "unsupported-current-scanner",
+        "external-api-probes": "not_requested"
+      },
+      "sourceSnapshot": "7bc4b394b9386435de6a74749d1f655599f07cbf",
+      "reason": "OSV query did not complete; dependency quality unmeasured"
+    },
+    {
+      "target": "clean-marketing",
+      "kind": "repo",
+      "status": "completed",
+      "durationMs": 23,
+      "expectedStatus": "curated-local",
+      "expected": [],
+      "actual": [],
+      "metrics": {
+        "expected": 0,
+        "actual": 0,
+        "truePositives": 0,
+        "falseNegatives": 0,
+        "falsePositives": 0,
+        "recall": 0,
+        "precision": 0,
+        "highCriticalPrecision": null,
+        "byCategory": {
+          "secret": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "api": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "code": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "dependency": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "config": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      },
+      "unmeasuredCategories": [],
+      "toolStatus": {
+        "custom-0.12.0": "ok",
+        "osv": "not_applicable",
+        "git-history": "unsupported-current-scanner",
+        "external-api-probes": "not_requested"
+      },
+      "sourceSnapshot": "42e1d65407dcfe0fe92e5dd32ece97dc2d34623d"
+    },
+    {
+      "target": "clean-docs",
+      "kind": "repo",
+      "status": "completed",
+      "durationMs": 21,
+      "expectedStatus": "curated-local",
+      "expected": [],
+      "actual": [
+        {
+          "id": "4a4cef0d99e8d333478e",
+          "category": "code",
+          "location": "src/checksum.ts:1",
+          "severity": "medium",
+          "rule": "repo.weak-hash"
+        }
+      ],
+      "metrics": {
+        "expected": 0,
+        "actual": 1,
+        "truePositives": 0,
+        "falseNegatives": 0,
+        "falsePositives": 1,
+        "recall": 0,
+        "precision": 0,
+        "highCriticalPrecision": null,
+        "byCategory": {
+          "secret": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "api": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "code": {
+            "expected": 0,
+            "actual": 1,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 1,
+            "recall": 0,
+            "precision": 0
+          },
+          "dependency": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "config": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      },
+      "unmeasuredCategories": [],
+      "toolStatus": {
+        "custom-0.12.0": "ok",
+        "osv": "not_applicable",
+        "git-history": "unsupported-current-scanner",
+        "external-api-probes": "not_requested"
+      },
+      "sourceSnapshot": "6b31b73b99174dd1b041d1accc74d3e5bf5f299b"
+    },
+    {
+      "target": "clean-portal",
+      "kind": "repo",
+      "status": "completed",
+      "durationMs": 28,
+      "expectedStatus": "curated-local",
+      "expected": [],
+      "actual": [
+        {
+          "id": "d3a7a519de0efafba11e",
+          "category": "code",
+          "location": "app/help/page.tsx:2",
+          "severity": "medium",
+          "rule": "repo.html-sink"
+        }
+      ],
+      "metrics": {
+        "expected": 0,
+        "actual": 1,
+        "truePositives": 0,
+        "falseNegatives": 0,
+        "falsePositives": 1,
+        "recall": 0,
+        "precision": 0,
+        "highCriticalPrecision": null,
+        "byCategory": {
+          "secret": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "api": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "code": {
+            "expected": 0,
+            "actual": 1,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 1,
+            "recall": 0,
+            "precision": 0
+          },
+          "dependency": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          },
+          "config": {
+            "expected": 0,
+            "actual": 0,
+            "truePositives": 0,
+            "falseNegatives": 0,
+            "falsePositives": 0,
+            "recall": 0,
+            "precision": 0
+          }
+        }
+      },
+      "unmeasuredCategories": [],
+      "toolStatus": {
+        "custom-0.12.0": "ok",
+        "osv": "not_applicable",
+        "git-history": "unsupported-current-scanner",
+        "external-api-probes": "not_requested"
+      },
+      "sourceSnapshot": "1b14e19216fa492e9e6e5567fdd0683db30e5baa"
+    },
+    {
+      "target": "juice-shop",
+      "kind": "url",
+      "expectedStatus": "pending-versioned-annotation",
+      "expected": [],
+      "actual": [],
+      "metrics": null,
+      "unmeasuredCategories": [
+        "secret",
+        "api",
+        "code",
+        "dependency",
+        "config"
+      ],
+      "toolStatus": {
+        "docker-target": "incomplete"
+      },
+      "status": "not_run",
+      "durationMs": null,
+      "reason": "Docker binary/server or named running loopback-bound container unavailable; target was not scanned"
+    },
+    {
+      "target": "nodegoat",
+      "kind": "url",
+      "expectedStatus": "pending-versioned-annotation",
+      "expected": [],
+      "actual": [],
+      "metrics": null,
+      "unmeasuredCategories": [
+        "secret",
+        "api",
+        "code",
+        "dependency",
+        "config"
+      ],
+      "toolStatus": {
+        "docker-target": "incomplete"
+      },
+      "status": "not_run",
+      "durationMs": null,
+      "reason": "Docker binary/server or named running loopback-bound container unavailable; target was not scanned"
+    },
+    {
+      "target": "dvwa",
+      "kind": "url",
+      "expectedStatus": "pending-versioned-annotation",
+      "expected": [],
+      "actual": [],
+      "metrics": null,
+      "unmeasuredCategories": [
+        "secret",
+        "api",
+        "code",
+        "dependency",
+        "config"
+      ],
+      "toolStatus": {
+        "docker-target": "incomplete"
+      },
+      "status": "not_run",
+      "durationMs": null,
+      "reason": "Docker binary/server or named running loopback-bound container unavailable; target was not scanned"
+    }
+  ],
+  "aggregate": {
+    "expected": 20,
+    "actual": 17,
+    "recall": 0.75,
+    "precision": 0.8823529411764706,
+    "falsePositives": 2,
+    "truePositives": 15,
+    "falseNegatives": 5,
+    "highCriticalPrecision": 1,
+    "byCategory": {
+      "secret": {
+        "expected": 7,
+        "actual": 5,
+        "truePositives": 5,
+        "falseNegatives": 2,
+        "falsePositives": 0,
+        "recall": 0.7142857142857143,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "api": {
+        "expected": 4,
+        "actual": 2,
+        "truePositives": 2,
+        "falseNegatives": 2,
+        "falsePositives": 0,
+        "recall": 0.5,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "code": {
+        "expected": 4,
+        "actual": 6,
+        "truePositives": 4,
+        "falseNegatives": 0,
+        "falsePositives": 2,
+        "recall": 1,
+        "precision": 0.6666666666666666,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      },
+      "dependency": {
+        "expected": 1,
+        "actual": null,
+        "truePositives": null,
+        "falseNegatives": null,
+        "falsePositives": null,
+        "recall": null,
+        "precision": null,
+        "status": "partial",
+        "unmeasuredExpected": 1
+      },
+      "config": {
+        "expected": 5,
+        "actual": 4,
+        "truePositives": 4,
+        "falseNegatives": 1,
+        "falsePositives": 0,
+        "recall": 0.8,
+        "precision": 1,
+        "status": "measured",
+        "unmeasuredExpected": 0
+      }
+    },
+    "cleanNegativeSet": [
+      {
+        "target": "clean-marketing",
+        "status": "completed",
+        "falsePositives": 0,
+        "durationMs": 23
+      },
+      {
+        "target": "clean-docs",
+        "status": "completed",
+        "falsePositives": 1,
+        "durationMs": 21
+      },
+      {
+        "target": "clean-portal",
+        "status": "completed",
+        "falsePositives": 1,
+        "durationMs": 28
+      }
+    ]
+  },
+  "limitations": [
+    "No Docker target is reported clean when it did not run.",
+    "Empty Docker expected arrays are pending annotations, not clean negative sets.",
+    "LocalReader hashes a content snapshot; it does not scan git history.",
+    "Quality metrics exclude explicitly unmeasured dependency rows; expected lists retain unmeasured cases and unknown category counters are null.",
+    "Location matching is category plus normalized file:line; it does not establish exploitability."
+  ],
+  "presentationNote": "Task 1 follow-up only: unknown dependency category counts are null (one expected planted case); seeded target totals exclude that unmeasured case. Original 0.12.0 findings, durations and measured aggregate metrics are unchanged."
+}

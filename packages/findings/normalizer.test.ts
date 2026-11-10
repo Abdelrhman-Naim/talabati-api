@@ -1,0 +1,20 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { normalize } from './normalizer';
+import { redactSecret } from './redact';
+import { fingerprint } from './dedupe';
+import { FindingSchema } from './schema';
+const raw = (tool = 'gitleaks', extra: Record<string, unknown> = {}) => ({ tool, state: 'ok' as const, findings: [{ rule: 'secret.exposed', category: 'secret', severity: 'high' as const, location: 'src/config.ts:3', evidence: 'Exposed credential', fix: 'Rotate credential', ...extra }] });
+test('redactSecret_keeps_first4_last4', () => { const secret = 'sk_live_1234567890abcdef', out = redactSecret(secret); assert.ok(out.startsWith('sk_l')); assert.ok(out.endsWith('cdef')); assert.ok(!out.includes(secret)); assert.equal(redactSecret('short').includes('short'), false); });
+test('same_secret_two_tools_deduped_with_higher_confidence', () => { const one = normalize([raw()], []), two = normalize([raw(), raw('semgrep')], []); assert.equal(two.findings.length, 1); assert.ok(two.findings[0].confidence > one.findings[0].confidence); assert.ok(two.findings[0].confidence <= 1); assert.equal(normalize([raw(), raw()], []).findings[0].confidence, one.findings[0].confidence); });
+test('suppressed_fingerprint_is_marked_suppressed_not_deleted', () => { const f = normalize([raw()], []).findings[0]; const r = normalize([raw()], [{ fingerprint: f.fingerprint, reason: 'Accepted fixture exception' }]); assert.equal(r.findings.length, 1); assert.equal(r.findings[0].status, 'suppressed'); assert.equal(normalize([raw()], [{ fingerprint: f.fingerprint, reason: 'Expired', expiresAt: 1 }]).findings[0].status, 'open'); });
+test('failed_tool_sets_toolStatus_incomplete', () => { const r = normalize([{ tool: 'semgrep', state: 'failed', findings: [] }], []); assert.equal(r.toolStatus.semgrep, 'incomplete'); assert.equal(r.findings.length, 0); });
+test('normalize_never_returns_full_secret', () => { for (const secret of ['sk_live_1234567890abcdef', 'AKIAABCDEFGHIJKLMNOP', 'sk-proj-' + 'a'.repeat(40), 'ghp_' + 'b'.repeat(30), 'aws-secret-without-a-recognizable-provider-prefix', 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoic2VydmljZV9yb2xlIn0.invalid']) {
+    const r = normalize([raw('custom', { evidence: 'Value ' + secret, fix: 'Rotate ' + secret, secrets: [secret] })], []);
+    assert.ok(!JSON.stringify(r).includes(secret));
+    assert.ok(FindingSchema.safeParse(r.findings[0]).success);
+} });
+test('normalization preserves detector severity/rule and is stable across ordering', () => { const a = normalize([raw('custom', { rule: 'repo.weak-hash', severity: 'medium', context: false })], []).findings[0]; assert.equal(a.rule, 'repo.weak-hash'); assert.equal(a.severity, 'medium'); assert.ok(a.confidence < 0.7); assert.equal(a.fingerprint, fingerprint(a)); const x = normalize([raw(), raw('semgrep')], []), y = normalize([raw('semgrep'), raw()], []); assert.deepEqual(x.findings, y.findings); });
+test('invalid findings make the tool incomplete; partial findings survive failed tool', () => { const r = normalize([raw('semgrep', { severity: 'bad' }), { ...raw('gitleaks'), state: 'failed' as const }], []); assert.equal(r.toolStatus.semgrep, 'incomplete'); assert.equal(r.toolStatus.gitleaks, 'incomplete'); assert.equal(r.findings.length, 1); });
+test('explicit secrets cannot leak through toolStatus keys or metadata fields', () => { const secret = 'unformatted-fixture-credential-123456789'; const r = normalize([raw(secret, { rule: secret, category: secret, location: secret, evidence: secret, fix: secret, secrets: [secret] })], []); assert.equal(JSON.stringify(r).includes(secret), false); });
+test('secrets declared anywhere in a tool batch are masked in every finding field',()=>{const secret='known-unformatted-credential-1234567890',a=raw('custom',{rule:'one',secrets:[secret]}),b=raw('semgrep',{rule:'two',evidence:secret,fix:secret,location:secret});assert.equal(JSON.stringify(normalize([a,b],[])).includes(secret),false);});

@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 2,
+  "annotationStatus": "curated",
+  "source": {
+    "kind": "planted-issues",
+    "reference": "benchmark/PLANTED-ISSUES.md#seeded",
+    "note": "Authored fixture ground truth, never derived from scanner output."
+  },
+  "findings": [
+    {
+      "id": "stripe-file",
+      "category": "secret",
+      "location": "src/stripe.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "openai-file",
+      "category": "secret",
+      "location": "src/openai.ts:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "aws-pair",
+      "category": "secret",
+      "location": "src/aws.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "supabase-service-role",
+      "category": "secret",
+      "location": "src/supabase.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "frontend-bundle-secret",
+      "category": "secret",
+      "location": "public/_next/static/chunks/bundle.js:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "next-public-misuse",
+      "category": "secret",
+      "location": "src/public-config.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "deleted-history-secret",
+      "category": "secret",
+      "location": "src/deleted-secret.ts:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "eval-input",
+      "category": "code",
+      "location": "src/eval.ts:1",
+      "severity": "medium",
+      "split": "dev"
+    },
+    {
+      "id": "sql-concat",
+      "category": "code",
+      "location": "src/query.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "shell-input",
+      "category": "code",
+      "location": "src/shell.ts:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "html-input",
+      "category": "code",
+      "location": "app/unsafe/page.tsx:1",
+      "severity": "medium",
+      "split": "dev"
+    },
+    {
+      "id": "tls-disabled",
+      "category": "config",
+      "location": "src/tls.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "missing-rls",
+      "category": "config",
+      "location": "supabase/migrations/001_table.sql:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "public-read-policy",
+      "category": "config",
+      "location": "supabase/migrations/002_read.sql:1",
+      "severity": "medium",
+      "split": "dev"
+    },
+    {
+      "id": "public-write-policy",
+      "category": "config",
+      "location": "supabase/migrations/003_write.sql:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "edge-jwt-disabled",
+      "category": "config",
+      "location": "supabase/config.toml:2",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "no-auth-route",
+      "category": "api",
+      "location": "app/api/private/route.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "idor-route",
+      "category": "api",
+      "location": "app/api/records/[id]/route.ts:1",
+      "severity": "high",
+      "split": "holdout"
+    },
+    {
+      "id": "jwt-none",
+      "category": "api",
+      "location": "src/jwt.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "cors-reflection",
+      "category": "api",
+      "location": "src/cors.ts:1",
+      "severity": "high",
+      "split": "dev"
+    },
+    {
+      "id": "lodash-known-advisory",
+      "category": "dependency",
+      "location": "package-lock.json:8",
+      "severity": "high",
+      "split": "dev"
+    }
+  ]
+}
