@@ -16,6 +16,52 @@
 
 ---
 
+## 🌐 واجهة برمجة التطبيقات المباشرة (Headless REST API)
+
+يمكن ربط السيرفر مباشرة بأي منصة خارجية (Frontend أو Backend) دون الحاجة لتسجيل دخول أو كوكيز، مع دعم كامل للـ CORS وطلبات الـ Preflight (`OPTIONS`):
+
+### 1. فحص كود مصدري مباشر (Code AST & Secrets Audit):
+- **المسار:** `POST /api/v1/scan` أو `POST /api/scan`
+- **المدخلات (JSON):**
+```json
+{
+  "code": "const apiKey = 'sb_secret_sample_mock_123456789'; eval(cmd);",
+  "filename": "server.js"
+}
+```
+- **النتيجة (JSON):** نتيجة فورية خلال مللي ثوانٍ مع رصد الأسرار والدوال الخطيرة ودرجة الأمان والتوصيات.
+
+### 2. فحص موقع أو واجهة برمجة (Live URL Audit):
+- **المسار:** `POST /api/v1/scan` أو `POST /api/scan`
+- **المدخلات (JSON):**
+```json
+{
+  "url": "https://example.com"
+}
+```
+- **النتيجة (JSON):** فحص شامل لترويسات الأمان (CSP, HSTS, CORS, X-Frame-Options) والأسرار المكشوفة ودرجة الأمان الإجمالية.
+
+### 3. فحص جاهزية الـ API:
+- **المسار:** `GET /api/v1/health`
+- **المسار التوثيقي:** `GET /api/v1`
+
+### 💻 مثال للربط البرمجي (JavaScript / Fetch):
+```javascript
+async function auditSecurity(targetUrl) {
+  const res = await fetch('https://talabati-api.apps.taqat.academy/api/v1/scan', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url: targetUrl })
+  });
+  const data = await res.json();
+  console.log(`Security Score: ${data.score} (${data.grade})`);
+  console.log('Total Findings:', data.summary.totalFindings);
+  console.log('Findings:', data.findings);
+}
+```
+
+---
+
 ## 🐳 التشغيل والنشر عبر Docker
 
 ### 1. تشغيل كحاوية متكاملة (Standalone Container - منصة طاقات / VPS):

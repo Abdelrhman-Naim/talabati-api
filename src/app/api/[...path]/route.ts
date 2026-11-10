@@ -11,16 +11,76 @@ import {GitHubReader,parseRepository} from '@/lib/repository/github';
 import {demoReport} from '@/lib/demo';
 import {remediationPrompt,markdownReport,scanRemediationPrompt} from '@/lib/prompts';
 import {enrichFinding} from '@/lib/ai';
+import {scanCodeSnippet,scanUrlTarget} from '@/lib/api-v1-service';
 
 export const runtime='nodejs';export const dynamic='force-dynamic';
 class HttpError extends Error{constructor(public status:number,message:string){super(message);}}
 const fail=(status:number,message:string):never=>{throw new HttpError(status,message);};
 const credentials=z.object({email:z.email().max(200),password:z.string().min(12).max(200)});
-async function body(req:NextRequest){if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'استخدم JSON');const reader=req.body?.getReader();if(!reader)return {};const chunks:Uint8Array[]=[];let size=0;while(true){const part=await reader.read();if(part.done)break;size+=part.value.byteLength;if(size>16384){await reader.cancel();fail(413,'حجم الطلب كبير');}chunks.push(part.value);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{fail(400,'طلب JSON غير صالح');}}
+const CORS_HEADERS={
+  'Access-Control-Allow-Origin':'*',
+  'Access-Control-Allow-Methods':'GET, POST, OPTIONS, DELETE',
+  'Access-Control-Allow-Headers':'Content-Type, Authorization, x-api-key',
+  'Access-Control-Max-Age':'86400',
+};
+async function body(req:NextRequest){if(!req.headers.get('content-type')?.includes('application/json'))fail(415,'استخدم JSON');const reader=req.body?.getReader();if(!reader)return {};const chunks:Uint8Array[]=[];let size=0;while(true){const part=await reader.read();if(part.done)break;size+=part.value.byteLength;if(size>65536){await reader.cancel();fail(413,'حجم الطلب كبير');}chunks.push(part.value);}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'));}catch{fail(400,'طلب JSON غير صالح');}}
 function sessionCookie(req:NextRequest,token:string,maxAge=604800){const origin=process.env.APP_ORIGIN??req.url;return {name:'aegis_session',value:token,httpOnly:true,secure:origin.startsWith('https:'),sameSite:'lax' as const,path:'/',maxAge};}
 async function handler(req:NextRequest,ctx:{params:Promise<{path:string[]}>}){
+  let isApiV1=false;
   try{
     const {path:segments}=await ctx.params;const path=segments.join('/');const store=getStore();const method=req.method;
+    if(method==='OPTIONS')return new NextResponse(null,{status:204,headers:CORS_HEADERS});
+
+    isApiV1=path==='v1'||path.startsWith('v1/')||path==='scan'||path.startsWith('scan/');
+    if(isApiV1){
+      if(process.env.API_KEY){
+        const authHeader=req.headers.get('authorization')??'';
+        const keyHeader=req.headers.get('x-api-key')??'';
+        const bearerKey=authHeader.startsWith('Bearer ')?authHeader.slice(7).trim():'';
+        if(keyHeader!==process.env.API_KEY&&bearerKey!==process.env.API_KEY){
+          return NextResponse.json({success:false,error:'Unauthorized: Invalid or missing API key'},{status:401,headers:CORS_HEADERS});
+        }
+      }
+      if(method==='GET'){
+        if(path==='v1'||path==='v1/help'||path==='v1/docs'){
+          return NextResponse.json({
+            service:'Aegis Security Audit API',
+            version:'1.0.0',
+            description:'Automated security scanner for websites, code snippets, and APIs',
+            endpoints:{
+              scan:'POST /api/v1/scan (Universal: accepts url or code)',
+              scanUrl:'POST /api/v1/scan/url',
+              scanCode:'POST /api/v1/scan/code',
+              health:'GET /api/v1/health'
+            },
+            examples:{
+              scanUrl:'curl -X POST https://talabati-api.apps.taqat.academy/api/v1/scan -H "Content-Type: application/json" -d \'{"url":"https://example.com"}\'',
+              scanCode:'curl -X POST https://talabati-api.apps.taqat.academy/api/v1/scan -H "Content-Type: application/json" -d \'{"code":"eval(cmd);","filename":"app.js"}\''
+            }
+          },{headers:CORS_HEADERS});
+        }
+        if(path==='v1/health')return NextResponse.json({success:true,status:'healthy',workerOnline:store.workerOnline(),timestamp:new Date().toISOString()},{headers:CORS_HEADERS});
+      }
+      if(method==='POST'){
+        if(path==='v1/scan'||path==='scan'){
+          const raw=await body(req);
+          if(typeof raw.code==='string')return NextResponse.json(scanCodeSnippet(raw.code,raw.filename),{headers:CORS_HEADERS});
+          if(typeof raw.url==='string')return NextResponse.json(await scanUrlTarget(raw.url,req.signal),{headers:CORS_HEADERS});
+          return NextResponse.json({success:false,error:'يرجى تزويد url أو code لفحصه'},{status:400,headers:CORS_HEADERS});
+        }
+        if(path==='v1/scan/code'||path==='scan/code'){
+          const raw=await body(req);
+          if(typeof raw.code!=='string')return NextResponse.json({success:false,error:'حقل code مطلوب'},{status:400,headers:CORS_HEADERS});
+          return NextResponse.json(scanCodeSnippet(raw.code,raw.filename),{headers:CORS_HEADERS});
+        }
+        if(path==='v1/scan/url'||path==='scan/url'){
+          const raw=await body(req);
+          if(typeof raw.url!=='string')return NextResponse.json({success:false,error:'حقل url مطلوب'},{status:400,headers:CORS_HEADERS});
+          return NextResponse.json(await scanUrlTarget(raw.url,req.signal),{headers:CORS_HEADERS});
+        }
+      }
+    }
+
     if(!['GET','HEAD'].includes(method)){
       const expected=new URL(process.env.APP_ORIGIN??req.url).origin;
       if(req.headers.get('origin')!==expected)fail(403,'مصدر الطلب غير مسموح');
@@ -102,6 +162,6 @@ async function handler(req:NextRequest,ctx:{params:Promise<{path:string[]}>}){
       }
     }
     fail(404,'العملية غير موجودة');
-  }catch(e){const status=e instanceof HttpError?e.status:400;return NextResponse.json({error:e instanceof z.ZodError?'مدخلات غير صالحة':redact(e instanceof Error?e.message:'تعذر تنفيذ الطلب').slice(0,300)},{status});}
+  }catch(e){const status=e instanceof HttpError?e.status:400;const headers=isApiV1?CORS_HEADERS:undefined;return NextResponse.json({success:false,error:e instanceof z.ZodError?'مدخلات غير صالحة':redact(e instanceof Error?e.message:'تعذر تنفيذ الطلب').slice(0,300)},{status,headers});}
 }
-export {handler as GET,handler as POST,handler as DELETE};
+export {handler as GET,handler as POST,handler as DELETE,handler as OPTIONS};
